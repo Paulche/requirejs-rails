@@ -32,16 +32,6 @@ var errback = function(error) {
   process.exit(1);
 }
 
-// Do a series of builds of individual files, using the args suggested by:
-// http://requirejs.org/docs/optimization.html#onejs
-//
-// r.js will eventually need a nested call idiom to handle async 
-// builds.  Anticipating that need.
-var async_runner = module_specs.reduceRight(function(prev, curr) {
-  return function (buildReportText) {
-    requirejs.optimize(mix(curr), prev);
-    requirejs.optimize(mix(curr), prev, errback);
-  };
-}, function(buildReportText) {} );
-
-async_runner();
+for (var spec in module_specs) {
+  requirejs.optimize(mix(module_specs[spec]), null, errback);
+}
