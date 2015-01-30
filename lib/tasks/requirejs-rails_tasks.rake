@@ -93,11 +93,9 @@ OS X Homebrew users can use 'brew install node'.
 
       requirejs.config.source_dir.mkpath
 
-      # Save the original JS compressor and cache, which will be restored later.
-
-      original_js_compressor = requirejs.env.js_compressor
       requirejs.env.js_compressor = false
 
+      # Save the original cache, which will be restored later.
       original_cache = requirejs.env.cache
       requirejs.env.cache = nil
 
@@ -119,7 +117,7 @@ OS X Homebrew users can use 'brew install node'.
       end
 
       # Restore the original JS compressor and cache.
-      requirejs.env.js_compressor = original_js_compressor
+      requirejs.env.js_compressor = Rails.configuration.assets.js_compressor
       requirejs.env.cache = original_cache
     end
 
